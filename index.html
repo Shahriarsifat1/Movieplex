@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Plex BD - বাংলা মুভি, সিনেমা রিভিউ, bangla dibbing movie</title>
+    <meta name="description" content="Movie Plex BD - আপনার প্রিয় বাংলা মুভি ও সিনেমার জন্য সেরা প্ল্যাটফর্ম। bangla dubbing movie, রিভিউ, রেটিং এবং আরো অনেক কিছু এখানে পান।">
+    <meta name="keywords" content="বাংলা মুভি, বাংলাদেশি সিনেমা, নতুন মুভি, movie plex, Movie Plex BD">
+    <link rel="canonical" href="https://www.movieplexbd.com/">
+
+    <!-- Open Graph Meta Tags for Social Media Sharing -->
+    <meta property="og:title" content="Movie Plex BD - বাংলা মুভি ও সিনেমা রিভিউ">
+    <meta property="og:description" content="Movie Plex BD - আপনার প্রিয় বাংলা মুভি ও সিনেমার জন্য সেরা প্ল্যাটফর্ম। নতুন মুভি রিলিজ, রিভিউ, রেটিং এবং আরো অনেক কিছু এখানে পান।">
+    <meta property="og:image" content="https://www.movieplexbd.com/images/banner.jpg">
+    <meta property="og:url" content="https://www.movieplexbd.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.movieplexbd.com/favicon.ico" type="image/x-icon">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        nav {
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            margin-top: 10px;
+        }
+       .all-sec-h3{
+       margin:12px;
+       font-size:1.5rem;
+       
+       }
+      .all-sec-h3::before{
+      content :"";
+      padding:2px;
+      background:red;
+      margin-right:7px;
+      }
+
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 0 5px;
+        }
+
+        .movie-card {
+            background-color: #2a2a2a;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 255);
+            width: 49%;
+            align-items: center;
+            box-sizing: border-box;
+            margin: 10px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid grey;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 0.5px solid #444;
+        }
+
+        .movie-info {
+            width: 100%;
+            padding: 5px;
+            color: #e0e0e0;
+        }
+
+        .movie-info h5 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .movie-info p {
+            margin-top: px;
+        }
+
+        .movie-info a {
+            color: #fff;
+            text-decoration: none;
+            background: tomato;
+            padding: 5px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .favorite-btn {
+            background: #ff0;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .favorite-btn.favorited {
+            background: #f00;
+            color: #fff;
+        }
+
+        #loading {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        #pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #2a2a2a;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            color: #e0e0e0;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        #search {
+            padding: 10px;
+            border: 1px solid tomato;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            background-color: #333;
+            color: #e0e0e0;
+            outline: none;
+        }
+
+        #prev {
+            padding: 10px;
+            background: transparent;
+            margin-bottom: 60px;
+            color: #fff;
+            outline: none;
+            border: 1px solid cyan;
+            border-radius: 10px;
+            float: left;
+            margin-left: 60px;
+        }
+
+        #next {
+            padding: 10px;
+            background: transparent;
+            margin-bottom: 60px;
+            margin-right: 60px;
+            color: #fff;
+            outline: none;
+            border: 1px solid cyan;
+            border-radius: 10px;
+            float: right;
+        }
+
+        #prev:hover {
+            background: grey;
+        }
+
+        #next:hover {
+            background: grey;
+        }
+
+        .span1 {
+            background: red;
+        }
+
+        .span2 {
+            border: 1.7px solid teal;
+        }
+
+        #modal-title, #modal-description {
+            width: 100%;
+            background: grey;
+            box-sizing: border-box;
+            overflow: auto;
+            padding: 5px;
+        }
+
+        .marquee-wrapper {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            border-top: 2px solid #ff6347;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            height: 40px;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            color: #ddd;
+            font-size: 1em;
+            font-weight: 500;
+            animation: marquee 15s linear infinite;
+            padding: 0 20px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .marquee-content span {
+            margin-right: 50px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+    <style type="text/css">
+    .slider-container {
+    position: relative;
+    width: 94%;
+    height: 170px;
+    overflow: hidden;
+    margin:120px 10px 10px 10px;
+   
+    background-color: #333;
+    border:1px solid black;
+    border-radius :10px;
+    }
+    
+    .slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    }
+    
+    .slide {
+    min-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    }
+    
+    .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    
+    .slide-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    }
+    
+    .nav-button {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translateY(-50%);
+    display:none;
+    }
+    
+    .prev-button {
+    left: 10px;
+    }
+    
+    .next-button {
+    right: 10px;
+    }
+    
+    .dots-container {
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    }
+    
+    .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+    
+    .active-dot {
+    background-color: #717171;
+    }
+    
+    
+    
+    </style>
+    
+    <style>
+    /* Custom CSS */
+    
+    
+    .container3 {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+    }
+    
+    .h3 {
+    
+    margin-bottom: 20px;
+    }
+    .h3::before{
+    
+    content:"️";
+    
+    background:red;
+    padding:2px;
+    margin-right:5px;
+    
+    }
+    
+    
+    .movies-container3{
+    display: flex;
+    overflow: hidden; /* Hide the scrollbar */
+    position: relative;
+    }
+    
+    .movie-card3 {
+    height:175px;
+    width: 102px;
+    background-color: #333;
+    border-radius: 8px;
+    border:1px solid grey;
+    paddig: 3px;
+    margin: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Prevent shrinking */
+    transition: transform 0.5s ease-in-out;
+    }
+    
+    .movie-card3 img {
+    width: 100px;
+    height: 140px; /* Adjusted to fit within 200px height */
+    object-fit: cover;
+    border-radius: 5px;
+    }
+    
+    .movie-card3 .card-body {
+    text-align: center;
+    padding-top: 5px;
+    }
+    
+    .movie-card3 .card-body h3 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    }
+    
+    .movie-card3 .card-body a {
+    display: inline-block;
+    color: #fff;
+    background-color: transparent;
+    border: 0.3px solid cyan;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .movie-card3 .card-body a:hover {
+    background-color: #0056b3;
+    }
+    
+    .carousel-control-prev, .carousel-control-next {
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    display :none;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+    
+    
+    
+    }
+    
+    .carousel-control-prev {
+    left: 10px;
+    }
+    
+    .carousel-control-next {
+    right: 10px;
+    }
+    
+    </style>
+    
+    
+</head>
+
+<body>
+    <header>
+        <h1><span class="span1">MOVIE </span><span class="span2">PLEX</span></h1>
+        <input type="text" id="search" placeholder="Search movies...">
+        </header>
+        
+        
+        <section>
+        <div class="slider-container">
+        <div class="slider-wrapper" id="slider">
+        <!-- Slides will be dynamically added here -->
+        </div>
+        <button class="nav-button prev-button" id="prevs">&#10094;</button>
+        <button class="nav-button next-button" id="nexts">&#10095;</button>
+        <div class="dots-container" id="dots"></div>
+        </div>
+        </section>
+        
+        <section>
+        <div class="container3">
+        <h2 class="h3">Top Movies</h2>
+        <div id="topMoviesCarousel" class="movies-container3">
+        <!-- Movie cards will be injected dynamically here -->
+        </div>
+        <button class="carousel-control-prev" id="prevBtn">&#8249;</button>
+        <button class="carousel-control-next" id="nextBtn">&#8250;</button>
+        </div>
+        </section>
+        
+        
+        
+        
+        
+        <main>
+        
+        <fieldset style="border: 2px solid #ddd; margin:10px;padding: 10px; border-radius: 0 20px 0 10px;">
+        <legend style="font-weight: bold; color: #007bff;">নোটিশ</legend>
+        এখানে সকল ধরনের নতুন বাংলা ডাব ও হিন্দি মুভি পেয়ে যাবে।
+        </fieldset>
+        
+        <h3 class="all-sec-h3">All New movies</h3>
+        <div id="loading">Loading movies...</div>
+        <div id="movie-list" class="movie-list"></div>
+        <div id="pagination">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+        </div>
+        
+        <div id="movie-modal" class="modal">
+        <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 id="modal-title"></h2>
+        <p id="modal-description"></p>
+        </div>
+        </div>
+        
+        <div class="marquee-wrapper">
+        <div class="marquee-content">
+        <span>🎉 স্বাগতম আমাদের ওয়েবসাইটে! 🎉</span>
+        <span>✨ আমাদের সাথে থাকুন নতুন আপডেটের জন্য। ✨</span>
+        <span>🌟 বিশেষ অফার এবং ইভেন্টস সম্পর্কে জানতে আমাদের সাইটে নিয়মিত ভিজিট করুন। 🌟</span>
+        </div>
+        </div>
+        </main>
+        
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+        authDomain: "movies-bee24.firebaseapp.com",
+        databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+        projectId: "movies-bee24",
+        storageBucket: "movies-bee24.appspot.com",
+        messagingSenderId: "1080659811750",
+        appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        const movieListContainer = document.getElementById('movie-list');
+        const loadingElement = document.getElementById('loading');
+        const modal = document.getElementById('movie-modal');
+        const closeModal = document.querySelector('.close-btn');
+        let allMovies = [];
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        
+        function loadMovies() {
+        loadingElement.style.display = 'block';
+        
+        const moviesRef = ref(db, 'movies');
+        onValue(moviesRef, (snapshot) => {
+        loadingElement.style.display = 'none';
+        allMovies = [];
+        movieListContainer.innerHTML = '';
+        snapshot.forEach((childSnapshot) => {
+        const movie = childSnapshot.val();
+        allMovies.push(movie);
+        });
+        paginateMovies(allMovies);
+        });
+        }
+        
+        function paginateMovies(movies) {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedMovies = movies.slice(start, end);
+        
+        movieListContainer.innerHTML = '';
+        paginatedMovies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.className = 'movie-card';
+        
+        const movieImage = document.createElement('img');
+        movieImage.src = movie.fileURL;
+        movieImage.alt = movie.name;
+        movieImage.addEventListener('click', () => {
+        showModal(movie);
+        });
+        
+        const movieInfo = document.createElement('div');
+        movieInfo.className = 'movie-info';
+        movieInfo.innerHTML = `
+        <h5>${movie.name} (${movie.year})</h5>
+        <p><a href="${movie.downloadLink}" target="_blank">Download</a></p>
+        `;
+        
+        movieCard.appendChild(movieImage);
+        movieCard.appendChild(movieInfo);
+        movieListContainer.appendChild(movieCard);
+        });
+        }
+        
+        document.getElementById('next').addEventListener('click', () => {
+        if ((currentPage * itemsPerPage) < allMovies.length) {
+        currentPage++;
+        paginateMovies(allMovies);
+        window.scrollTo({ top:600, behavior: 'smooth' });
+        }
+        });
+        
+        document.getElementById('prev').addEventListener('click', () => {
+        if (currentPage > 1) {
+        currentPage--;
+        paginateMovies(allMovies);
+        window.scrollTo({ top:600, behavior: 'smooth' });
+        }
+        });
+        
+        document.getElementById('search').addEventListener('input', function (event) {
+        const query = event.target.value.toLowerCase();
+        const filteredMovies = allMovies.filter(movie =>
+        movie.name.toLowerCase().includes(query)
+        );
+        paginateMovies(filteredMovies);
+        });
+        
+        function showModal(movie) {
+        document.getElementById('modal-title').textContent = movie.name;
+        document.getElementById('modal-description').textContent = movie.description || 'No description available.';
+        modal.style.display = 'block';
+        }
+        
+        closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        });
+        
+        window.onclick = function (event) {
+        if (event.target == modal) {
+        modal.style.display = 'none';
+        }
+        };
+        
+        loadMovies();
+        
+        
+        
+        //slider script 
+        
+        
+        
+        
+        </script>
+        
+        
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+        authDomain: "movies-bee24.firebaseapp.com",
+        databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+        projectId: "movies-bee24",
+        storageBucket: "movies-bee24.appspot.com",
+        messagingSenderId: "1080659811750",
+        appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const slidesRef = ref(db, 'slides');
+        const slider = document.getElementById('slider');
+        const dotsContainer = document.getElementById('dots');
+        
+        let slides = [];
+        let currentIndex = 0;
+        let slideInterval;
+        
+        function loadSlides() {
+        onValue(slidesRef, (snapshot) => {
+        slides = [];
+        slider.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        
+        snapshot.forEach((childSnapshot) => {
+        const slide = childSnapshot.val();
+        slides.push(slide);
+        const slideElement = document.createElement('div');
+        slideElement.className = 'slide';
+        slideElement.innerHTML = `
+        <a href="${slide.link}">
+        <img src="${slide.imageURL}" alt="${slide.title}">
+        <div class="slide-info">${slide.title}</div>
+        </a>
+        `;
+        slider.appendChild(slideElement);
+        
+        // Create dot for each slide
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.addEventListener('click', () => {
+        showSlide(slides.indexOf(slide));
+        });
+        dotsContainer.appendChild(dot);
+        });
+        
+        // Start the auto-sliding
+        startAutoSlide();
+        });
+        }
+        
+        function showSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update dots
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active-dot', i === currentIndex);
+        });
+        }
+        
+        function startAutoSlide() {
+        slideInterval = setInterval(() => {
+        showSlide(currentIndex + 1);
+        }, 2000); // Slide every 5 seconds
+        }
+        
+        function stopAutoSlide() {
+        clearInterval(slideInterval);
+        }
+        
+        document.getElementById('prev').addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+        stopAutoSlide();
+        startAutoSlide();
+        });
+        
+        document.getElementById('next').addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+        stopAutoSlide();
+        startAutoSlide();
+        });
+        
+        loadSlides();
+        </script>
+        
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        
+        // Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+        authDomain: "movies-bee24.firebaseapp.com",
+        databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+        projectId: "movies-bee24",
+        storageBucket: "movies-bee24.appspot.com",
+        messagingSenderId: "1080659811750",
+        appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        // Movie reference
+        const topMoviesRef = ref(db, 'top_movies');  // Assuming 'top_movies' node stores top movies data
+        
+        // Fetch and display top movies
+        onValue(topMoviesRef, (snapshot) => {
+        const data = snapshot.val();
+        const topMoviesList = document.getElementById('topMoviesCarousel');
+        topMoviesList.innerHTML = '';
+        
+        if (data) {
+        Object.keys(data).forEach((key) => {
+        const movie = data[key];
+        const movieCard = `
+        <div class="movie-card3">
+        <a href="${movie.downloadUrl}" target="_blank">
+        <img src="${movie.imageUrl}" alt="${movie.title}">
+        </a>
+        <div class="card-body">
+        <h3>${movie.title}</h3>
+        
+        </div>
+        </div>
+        `;
+        topMoviesList.innerHTML += movieCard;
+        });
+        } else {
+        topMoviesList.innerHTML = '<div class="text-center">No top movies found</div>';
+        }
+        });
+        
+        // Carousel control logic
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const moviesContainer = document.getElementById('topMoviesCarousel');
+        
+        // Number of pixels to scroll per click (width of 3 cards plus margin)
+        const scrollAmount = 3 * 127; // width (123px) + margin (4px) = 127px per card
+        
+        prevBtn.addEventListener('click', () => {
+        moviesContainer.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+        });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+        moviesContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+        });
+        });
+        
+        // Auto-slide functionality
+        let autoSlideInterval = setInterval(() => {
+        moviesContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+        });
+        
+        // If we've reached the end, scroll back to start
+        if (moviesContainer.scrollLeft + moviesContainer.clientWidth >= moviesContainer.scrollWidth) {
+        moviesContainer.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+        });
+        }
+        }, 3000); // Slide every 5 seconds
+        
+        // Pause auto-slide on mouse enter and resume on mouse leave
+        moviesContainer.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+        });
+        
+        moviesContainer.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(() => {
+        moviesContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+        });
+        
+        if (moviesContainer.scrollLeft + moviesContainer.clientWidth >= moviesContainer.scrollWidth) {
+        moviesContainer.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+        });
+        }
+        }, 3000);
+        });
+        
+        </script>
+        
+        
+        
+        </body>
+        
+        </html>
